@@ -26,14 +26,14 @@ cp "$SRC/index.html" "$DIST/index.html"
 cp "$SRC/css/"*.css "$DIST/css/"
 cp "$SRC/js/"*.js "$DIST/js/"
 
-# 3. Copy public assets (images) — profile.jpg is THE swappable asset:
-#    replace public/images/profile.jpg and rebuild (or drop it straight into dist/)
+# 3. Copy public assets (images) — rajdeep-profile.jpg is THE swappable asset:
+#    replace public/images/rajdeep-profile.jpg and rebuild (or drop it straight into dist/)
 if [ -d "$PUBLIC/images" ]; then
   cp "$PUBLIC/images/"*.jpg "$PUBLIC/images/"*.jpeg "$PUBLIC/images/"*.png "$PUBLIC/images/"*.webp "$PUBLIC/images/"*.gif "$DIST/images/" 2>/dev/null || true
 fi
 
 # 4. Validate: required files present
-for f in "index.html" "css/styles.css" "js/main.js" "images/profile.jpg"; do
+for f in "index.html" "css/styles.css" "js/main.js" "images/rajdeep-profile.jpg" "images/throwback.jpg"; do
   if [ ! -f "$DIST/$f" ]; then
     echo "❌ BUILD FAILED: missing dist/$f"
     exit 1
@@ -41,7 +41,7 @@ for f in "index.html" "css/styles.css" "js/main.js" "images/profile.jpg"; do
 done
 
 # 5. Validate: no leftover template placeholders for PHOTO or EMAIL.
-#    (PLACEHOLDER comments for socials/bio/school details are EXPECTED and fine.)
+#    (a [PLACEHOLDER: school name] is EXPECTED — Rajdeep's school is unconfirmed.)
 if grep -Rni "PLACEHOLDER: photo\|PLACEHOLDER: email" "$DIST" >/dev/null 2>&1; then
   echo "⚠️  WARNING: dist/ still contains a photo/email placeholder — check index.html"
 fi
